@@ -11,6 +11,37 @@ const checkRestaurantOwnership = async (req, res, next) => {
     return res.status(500).send(err)
   }
 }
+
+// const checkNoOtherPromoted = async (req, res, next) => {
+//   try {
+//     const isPromoted = req.body.promoted
+//     const otherPromotedRestaurant = await Restaurant.findOne({
+//       where: {
+//         promoted: true
+//       }
+//     })
+//     if (otherPromotedRestaurant && isPromoted) {
+//       return res.status(422).send('There is already some promoted restaurant')
+//     }
+//     return next()
+//   } catch (error) {
+//     return res.status(500).send(error)
+//   }
+// }
+
+const checkNoOtherPromoted = async (req, res, next) => {
+  try {
+    const fPro = await Restaurant.findOne({
+      where: { promoted: true, userId: req.user.id }
+    })
+    if (req.body.promoted && fPro) {
+      return res.status(422).send('error')
+    }
+    return next()
+  } catch (err) {
+    return res.status(500).send(err.message)
+  }
+}
 const restaurantHasNoOrders = async (req, res, next) => {
   try {
     const numberOfRestaurantOrders = await Order.count({
@@ -25,4 +56,4 @@ const restaurantHasNoOrders = async (req, res, next) => {
   }
 }
 
-export { checkRestaurantOwnership, restaurantHasNoOrders }
+export { checkRestaurantOwnership, restaurantHasNoOrders, checkNoOtherPromoted }
