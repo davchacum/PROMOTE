@@ -78,3 +78,5 @@ Este repositorio incluye el backend completo (carpeta `DeliverUS-Backend`) y el 
     npm run test:backend
     ```
 **Advertencia: Los tests no pueden ser modificados.**
+https://github.com/IISSI2-IS-profs/DeliverUS-Owner-Monorepo-Enunciados-y-Soluciones
+https://github.com/IISSI2-IS-2024/Simulacro-Examen/tree/solution
